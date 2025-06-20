@@ -1,0 +1,55 @@
+{
+  "name": "micropulse",
+  "version": "1.0.0",
+  "description": "Full-stack microservice application with Next.js, Express.js, MongoDB, and RabbitMQ",
+  "private": true,
+  "workspaces": [
+    "services/*",
+    "frontend",
+    "shared/*"
+  ],
+  "scripts": {
+    "setup": "chmod +x setup.sh && ./setup.sh",
+    "setup:windows": "setup.bat",
+    "start": "docker-compose up -d",
+    "dev": "docker-compose up -d",
+    "dev:logs": "docker-compose logs -f",
+    "stop": "docker-compose down",
+    "restart": "npm run stop && npm run start",
+    "status": "docker-compose ps",
+    "build": "docker-compose build",
+    "rebuild": "docker-compose down && docker-compose build --no-cache && docker-compose up -d",
+    "clean": "docker-compose down -v --remove-orphans",
+    "install:all": "npm install && npm run install:services && npm run install:frontend",
+    "install:services": "cd services/api-gateway && npm install && cd ../user-service && npm install && cd ../product-service && npm install && cd ../order-service && npm install && cd ../inventory-service && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "test": "npm run test:services && npm run test:frontend",
+    "test:services": "cd services/api-gateway && npm test && cd ../user-service && npm test && cd ../product-service && npm test && cd ../order-service && npm test && cd ../inventory-service && npm test",
+    "test:frontend": "cd frontend && npm test",
+    "lint": "npm run lint:services && npm run lint:frontend",
+    "lint:services": "cd services/api-gateway && npm run lint && cd ../user-service && npm run lint && cd ../product-service && npm run lint && cd ../order-service && npm run lint && cd ../inventory-service && npm run lint",
+    "lint:frontend": "cd frontend && npm run lint"
+  },
+  "keywords": [
+    "microservices",
+    "nodejs",
+    "express",
+    "mongodb",
+    "rabbitmq",
+    "nextjs",
+    "typescript",
+    "docker"
+  ],
+  "author": "Mokwa Developer",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mokwathedeveloper/MicroPulse.git"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  }
+}
